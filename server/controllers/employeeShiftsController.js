@@ -3,7 +3,7 @@ const employeesShiftsServices = require('../services/employeesShiftsServices');
 
 const router = express.Router();
 
-//Entry point: 'http://localhost:3000/employeeShift'
+//Entry point: 'http://localhost:3000/employeesShifts'
 
 //Get all shifts of each employee
 router.get('/', async (req, res) => {
@@ -11,9 +11,20 @@ router.get('/', async (req, res) => {
         const employeeShifts = await employeesShiftsServices.getAllEmployeesShifts();
         res.json(employeeShifts);    
     } catch (error) {
-        res.json(error.message)
+        res.json(error.message);
     }
 });
+
+router.get('/byShiftId', async(req, res) => {
+    try {
+        const { shiftId } = req.query; 
+        const employeesShift = await employeesShiftsServices.getEmployeesShiftByShiftId(shiftId);
+        res.json(employeesShift);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+});
+
 
 //Get shift of employee by id
 router.get('/:id', async (req, res) => {

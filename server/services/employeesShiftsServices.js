@@ -8,6 +8,13 @@ const getEmployeeShiftById = (id) => {
   return employeesShiftsRepo.getEmployeeShiftById(id);
 };
 
+const getEmployeesShiftByShiftId = async (shiftId) => {
+  const employeesShifts = await employeesShiftsRepo.getEmployeesShifts();
+  const employeesShift = employeesShifts.filter(employeeShift => employeeShift.shiftID === shiftId);
+  return employeesShift;
+}
+
+
 const addEmployeeShift = (employeeShift) => {
   return employeesShiftsRepo.addEmployeeShift(employeeShift);
 };
@@ -16,27 +23,10 @@ const deleteEmployeeShift = (id) => {
   return employeesShiftsRepo.deleteEmployeeShift(id);
 };
 
-// const getEmployeeShiftsByEmployeeId = async (employeeId) => {
-//   const employeeShifts = await employeesShiftsRepo.getEmployeeShifts();
-//   const filterEmployeeShifts = employeeShifts.filter(
-//     (employeeShift) => employeeShift.employeeID === employeeId
-//   );
-//   return filterEmployeeShifts;
-// };
-
-// const getEmployeeShiftsByShiftId = async (shiftId) => {
-//   const employeeShifts = await employeesShiftsRepo.getEmployeeShifts();
-//   const filterEmployeeShifts = employeeShifts.filter(
-//     (employeeShift) => employeeShift.shiftID === shiftId
-//   );
-//   return filterEmployeeShifts;
-// };
-
 module.exports = {
   getAllEmployeesShifts,
   getEmployeeShiftById,
+  getEmployeesShiftByShiftId,
   addEmployeeShift,
-  deleteEmployeeShift,
-  // getEmployeeShiftsByEmployeeId,
-  // getEmployeeShiftsByShiftId,
+  deleteEmployeeShift
 };

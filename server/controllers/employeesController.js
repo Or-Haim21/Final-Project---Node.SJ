@@ -1,4 +1,6 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+
 const employeeServices = require('../services/employeeServices');
 
 const router = express.Router();
@@ -6,6 +8,7 @@ const router = express.Router();
 //Entry point: 'http://localhost:3000/employees'
 
 //Get Full data of employees: employee details, his department and shifts
+
 router.get('/', async (req, res) => {
     try {
         const employees = await employeeServices.getFullDataOfEmployees();
@@ -14,6 +17,7 @@ router.get('/', async (req, res) => {
         res.json(error.message)
     }
 });
+
 
 //Get employee by his id 
 router.get('/:id', async (req, res) => {
@@ -54,7 +58,7 @@ router.put('/:id', async (req, res) => {
 
 //Delete e,ployee 
 router.delete('/:id', async (req, res) => {
-    try {
+    try {       
         const {id} = req.params;
         const result = await employeeServices.deleteEmployee(id);
         res.json(result);

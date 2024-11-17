@@ -7,16 +7,17 @@ const getAllDepartments = (filters) => {
 
 const getFullDataOfDepartments = async () => {
   const departments = await departmentsRepo.getDepartments();
-  const fullDataOfDepartments = await Promise.all( // Promise.all ensure all asynchronous operations are completed before returning the result. 
+  const fullDataOfDepartments = await Promise.all(
+    // Promise.all ensure all asynchronous operations are completed before returning the result.
     departments.map(async (department) => {
       const manager = await employeesRepo.getEmployById(department.managerID);
       const allEmployees = await employeesRepo.getEmployees();
-      const employees = allEmployees.filter(
-        (employee) => department._id.equals(employee.departmentID)
+      const employees = allEmployees.filter((employee) =>
+        department._id.equals(employee.departmentID)
       );
 
       return {
-        name: department.name,
+        details: department,
         manager: manager ? manager : {},
         employees: employees,
       };
@@ -25,7 +26,6 @@ const getFullDataOfDepartments = async () => {
 
   return fullDataOfDepartments;
 };
-
 
 const getDepartmentById = (id) => {
   return departmentsRepo.getDepartmentById(id);

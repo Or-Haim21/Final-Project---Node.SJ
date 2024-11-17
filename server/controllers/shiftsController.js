@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 //Get shift by id
 router.get('/:id', async (req, res) => {
     try {
-        const {id} =  req.body;
+        const {id} =  req.params;
         const shift = await shiftsServices.getShiftById(id);
         res.json(shift);
     } catch (error) {
